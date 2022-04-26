@@ -55,4 +55,32 @@ public class Graph<E> {
     public int size(){
         return label.length;
     }
+
+    //Uses a queue to keep track of vertices that still need to be visited
+    public QueueInterface<T> getBreadthFirstTraversal(T origin) {
+        resetVertices();
+        QueueInterface<T> traversalOrder = new LinkedQueue<T>();
+        QueueInterface<VertexInterface<T>> vertexQueue = new LinkedQueue<VertexInterface<T>>();
+
+        VertexInterface<T> originVertex = vertices.getValue(origin);
+        originVertex.visit();
+        traversalOrder.enqueue(origin); //enqueue vertex label
+        vertexQueue.enqueue(originVertex); //enqueue vertex
+
+        while(!vertexQueue.isEmpty()){
+            VertexInterface<T> frontVertex = vertexQueue.dequeue();
+
+            Iterator<VertexInterface<T>> neighbors = frontVertex.getNeighborIterator();
+
+            while(neighbors.hasNext()){
+                VertexInterface<T> nextNeighbor = neighbors.next();
+                if(!nextNeighbor.isVisited()){
+                    nextNeighbor.visit();
+                    traversalOrder.enqueue(nextNeighbor.getLabel());
+                    vertexQueue.enqueue(nextNeighbor);
+                }
+            }
+        }
+        return traversalOrder;
+    }
 }
