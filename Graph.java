@@ -17,7 +17,27 @@ public class Graph<E> {
         return edges[source][target];
     }
 
+    //Add an edge
     public void addEdge(int source, int target){
         edges[source][target] = true;
+    }
+
+    //obatain a list of neighbors of a specific vertex of this Graph
+    public int[] neighbors(int vertex){
+        int i;
+        int count = 0;
+        int[] answer;
+
+        for(i = 0; i < labels.length; i++){
+            if(edges[vertex])
+                count++;
+        }
+        answer = new int[count];
+        for(i = 0; i < labels.length; i++){
+            if(edges[vertex][i])
+                answer[count++] = i;
+        }
+
+        return answer;
     }
 }
