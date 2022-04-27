@@ -29,7 +29,7 @@ public class Graph<E> {
         int[] answer;
 
         for(i = 0; i < labels.length; i++){
-            if(edges[vertex])
+            if(edges[vertex][i])
                 count++;
         }
         answer = new int[count];
@@ -53,7 +53,7 @@ public class Graph<E> {
 
     //Accessor method to determine the number of vertices in this Graph
     public int size(){
-        return label.length;
+        return labels.length;
     }
 
     //Uses a queue to keep track of vertices that still need to be visited
@@ -81,6 +81,29 @@ public class Graph<E> {
                 }
             }
         }
+        return traversalOrder;
+    }
+
+    public QueueInterface<T> getDepthFirstTraversal(T origin){
+        //Assumes graph is not empty
+        resetVertices();
+        QueueInterface<T> traversalOrder = new LinkedQueue<T>();
+        StackInterface<VertexInterface<T>> vertexStack = new LinkedStack<>();
+
+        while(!vertexStack.isEmpty()){
+
+            VertexInterface<T> topVertex = vertexStack.peek();
+            VertexInterface<T> nextNeighbor = topVertex.getUnvisitedNeighbor();
+
+            if(nextNeighbor != null){
+                nextNeighbor.visit();
+                traversalOrder.enqueue(nextNeighbor.getLabel());
+                vertexStack.push(nextNeighbor);
+            }else{
+                vertexStack.pop();
+            }
+        }
+
         return traversalOrder;
     }
 }
