@@ -1,3 +1,5 @@
+package Project_5;
+
 public class Graph<E> {
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
     private E[] labels; // labels[i] contains the label for vertex i
@@ -54,6 +56,15 @@ public class Graph<E> {
     //Accessor method to determine the number of vertices in this Graph
     public int size(){
         return labels.length;
+    }
+
+    public void resetVertices(){
+        Iterator<VertexInterface<T>> vertexIterator = vertices.getValueIterator();
+        while(vertexIterator.hasNext()){
+            VertexInterface<T> nextVertex = vertexIterator.next();
+            nextVertex.unvisit();
+            nextVertex.setPredecessor(null);
+        }
     }
 
     //Uses a queue to keep track of vertices that still need to be visited
