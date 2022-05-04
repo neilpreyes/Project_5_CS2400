@@ -1,4 +1,4 @@
-package Project_5;
+package StackADT;
 
 public interface StackInterface<T> {
     public void push(T newEntry);

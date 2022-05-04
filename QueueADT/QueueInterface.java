@@ -1,4 +1,4 @@
-package Project_5;
+package QueueADT;
 
 public interface QueueInterface<T> {
     public void enqueue(T newEntry);
