@@ -3,14 +3,17 @@ package GraphADT;
 import java.util.*;
 import QueueADT.*;
 import StackADT.*;
+import DictionaryADT.*;
 
-public class Graph<T> {
+public class Graph<T> implements GraphInterface {
     private boolean[][] edges; // edges[i][j] is true if there is a vertex from i to j
     private T[] labels; // labels[i] contains the label for vertex i
+    private DictionaryInterface<T, VertexInterface<T>> vertices;
 
     public Graph(int n) {
         edges = new boolean[n][n]; //all values initially false
         labels = (T[]) new Object[n]; //All values initially null
+        vertices = new ArrayDictionary<>();
     }
 
     //Accessor method to get the label of a vertex of this Graph
@@ -27,6 +30,12 @@ public class Graph<T> {
     public void addEdge(int source, int target){
         edges[source][target] = true;
     }
+
+    public boolean addVertex(T vertexLabel)
+   {
+        VertexInterface<T> addOutcome = vertices.add(vertexLabel, new Vertex<>(vertexLabel));
+        return addOutcome == null;
+   }
 
     //obatain a list of neighbors of a specific vertex of this Graph
     public int[] neighbors(int vertex){
