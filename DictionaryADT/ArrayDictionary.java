@@ -1,6 +1,7 @@
 package DictionaryADT;
 
 import java.util.Iterator;
+import java.util.NoSuchElementException;
 
 public class ArrayDictionary<K, V> implements DictionaryInterface<K, V> {
     private Entry<K,V>[] dictionary;
@@ -67,46 +68,56 @@ public class ArrayDictionary<K, V> implements DictionaryInterface<K, V> {
         return result;
     }
 
-    @Override
-    public V getValue(K key) {
-        // TODO Auto-generated method stub
-        return null;
-    }
 
     @Override
     public boolean contains(K key) {
-        // TODO Auto-generated method stub
-        return false;
+        
     }
 
     @Override
     public boolean isEmpty() {
-        // TODO Auto-generated method stub
-        return false;
+        int num = 0;
+        while(num < numberOfEntries){
+            if(dictionary[num].equals(null)){
+                num++;
+            }else{
+                return false;
+            }
+        }
+        return true;
     }
 
     @Override
     public int getSize() {
-        // TODO Auto-generated method stub
-        return 0;
+        return numberOfEntries;
     }
 
     @Override
     public void clear() {
-        // TODO Auto-generated method stub
+        for(int i = 0; i < numberOfEntries; i++){
+            dictionary[i] = null;
+        }
         
     }
 
     public void checkCapacity(int capacity){
-
+        if(capacity > MAX_CAPACITY){
+            throw new IllegalArgumentException("Too many extries. Exceed maximum capacity");
+        }else if(capacity < DEFAULT_CAPACITY){
+            Entry<K,V>[] dictionary = (Entry<K, V>[])new Entry[DEFAULT_CAPACITY];
+        }else{
+            Entry<K,V>[] dictionary = (Entry<K, V>[])new Entry[capacity];
+        }
     }
 
     public void checkIntegrity(){
-
+        if(!integrityOK){
+            throw new IllegalStateException("Dictionary is not or has not been properly initialized.");
+        }
     }
 
     public void ensureCapacity(){
-        
+        checkCapacity(dictionary.length);
     }
 
     @Override
@@ -123,16 +134,19 @@ public class ArrayDictionary<K, V> implements DictionaryInterface<K, V> {
     private class Entry<K, V>{
         private K key;
         private V value;
-
+        
+        
         private Entry(K searchKey, V dataValue){
             key = searchKey;
             value = dataValue;
         }
 
+        
         private K getKey(){
             return key;
         }
 
+        
         private V getValue(){
             return value;
         }
@@ -141,8 +155,6 @@ public class ArrayDictionary<K, V> implements DictionaryInterface<K, V> {
             value = dataValue;
         }
     }
-
-    
 
    
 }
