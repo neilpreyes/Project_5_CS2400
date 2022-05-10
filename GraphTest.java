@@ -38,5 +38,15 @@ public class GraphTest {
         {
             System.out.print(depthFirstTravel.dequeue() + ", ");
         }
+
+        System.out.println();
+
+        QueueInterface<Character> breadthFirstSearch = ((Graph) GraphTest).getBreadthFirstTraversal('A');
+        System.out.print("Breadth First Travel: ");
+        while(!breadthFirstSearch.isEmpty())
+        {
+            System.out.print(breadthFirstSearch.dequeue() + ", ");
+        }
+
     }
 }

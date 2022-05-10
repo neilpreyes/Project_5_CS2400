@@ -49,8 +49,8 @@ public final class LinkedQueue<T> implements QueueInterface<T> {
 	}
 
 	private class Node{
-		private T    data; // Entry in queue
-		private Node next; // Link to next node
+		private T    data; 
+		private Node next;
       
 		private Node(T dataPortion){
 			data = dataPortion;

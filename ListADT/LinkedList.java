@@ -152,36 +152,24 @@ public class LinkedList<T> implements ListIteratorInterface<T>{
    } 
 
    public Iterator<T> iterator(){
-	   return new IteratorForLinkedList();
+	   return getIterator();
    }
 
 	public Iterator<T> getIterator(){
-	   return iterator();
-	}
-   
-	private class IteratorForLinkedList implements Iterator<T>{
+	   return new Iterator<T>() {
+          Node currentNode = firstNode;
+          @Override
+          public boolean hasNext() {
+             return currentNode != null;
+          }
 
-        private Node nextNode;
-
-		private IteratorForLinkedList(){
-			nextNode = firstNode;
-		}
-		
-
-        public boolean hasNext(){
-            return nextNode != null;
-        }
-
-      public T next(){
-         T result;
-         if (hasNext()){
-            result = nextNode.getData();
-            nextNode = nextNode.getNextNode();
-         }
-         else
-            throw new NoSuchElementException("Illegal call to next() iterator is after end of list.");
-         return result;
-      }
+          @Override
+          public T next() {
+             T val = currentNode.getData();
+             currentNode = currentNode.getNextNode();
+             return val;
+          }
+       };
 	}
 	
    public int getLength(){
@@ -190,8 +178,8 @@ public class LinkedList<T> implements ListIteratorInterface<T>{
 
 	private class Node{
 
-      private T    data; // Entry in list
-      private Node next; // Link to next node
+      private T    data;
+      private Node next;
       
       private Node(T dataPortion)
       {

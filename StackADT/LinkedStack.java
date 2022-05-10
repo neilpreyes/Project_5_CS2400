@@ -4,18 +4,18 @@ import java.util.EmptyStackException;
 
 public final class LinkedStack<T> implements StackInterface<T> 
 {
-    private Node topNode; // References the first node in the chain
+    private Node topNode; 
 
     public LinkedStack()
     {
         topNode = null;
-    } // end default constructor
+    } 
 
     public void push(T newEntry)
     {
         Node newNode = new Node(newEntry, topNode);
         topNode = newNode;
-    } // end push
+    }
 
     public T peek()
     {
@@ -26,58 +26,54 @@ public final class LinkedStack<T> implements StackInterface<T>
         else
         {
             return topNode.getData();
-        } // end if
-    } // end peek
+        }
+    }
 
     public T pop()
     {
-        T top = peek(); // Might throw EmptyStackException
-        // Assertion: topNode != null
+        T top = peek();
         topNode = topNode.getNextNode();
         
         return top;
-    } // end pop
+    }
 
     @Override
     public boolean isEmpty() 
     {
         return topNode == null;
-    } // end isEmpty
+    } 
 
     @Override
     public void clear() 
     {
         topNode = null;
-    } // end clear
+    } 
 
     private class Node
     {
-        private T    data; // Entry in stack
-        private Node next; // Link to next node
+        private T    data; 
+        private Node next; 
 
         public Node(T dataPortion)
         {
            this(dataPortion, null);
-        } // end constructor
+        } 
 
         public Node(T dataPortion, Node nextNode)
         {
-            data = dataPortion; // The data or object to be contained within the node 
-            next = nextNode; // Links to the next node in the chain 
-
-            // Note: we could also use the following
-            // topNode = new Node(dataPortion, nextNode);
-        } // end constructor
+            data = dataPortion; 
+            next = nextNode;
+        }
 
         private T getData()
         {
             return data;
-        } // end getData
+        } 
 
         private void setData(T newData)
         {
             data = newData;
-        } // end setData
+        } 
 
         private Node getNextNode()
         {
@@ -86,7 +82,7 @@ public final class LinkedStack<T> implements StackInterface<T>
 
         private void setNextNode(Node nextNode)
         {
-            next = nextNode; // set instance variable next to the next node in the chain 
+            next = nextNode; 
         }
-    } // end Node
-} // end LinkedStack
+    } 
+} 
